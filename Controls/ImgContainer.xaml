@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="Crusade.Controls.ImgContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+             xmlns:data="clr-namespace:Crusade.Data"
+             xmlns:drawable="clr-namespace:Crusade.Drawable"
+             xmlns:controls="clr-namespace:Crusade.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="600"
+             PreviewDragEnter="ImgContainter_PreviewDragEnter"
+             PreviewDragLeave="ImgContainer_PreviewDragLeave"
+             PreviewDrop="ImgContainer_PreviewDrop"
+             Name="Control"
+             AllowDrop="true">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/HorizontalScrollbar.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../Styles/ItemActionButtons.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../Styles/ComboBox.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Margin="0 10 0 10" Name="DropFilesUI"  HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+            <Border CornerRadius="20"               
+                Padding="10"
+                BorderThickness="3">
+                <Border.BorderBrush>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Rectangle Fill="Transparent" StrokeDashArray="4 2" Stroke="Gray" StrokeThickness="2" RadiusX="20" RadiusY="20"
+                              Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                              Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Border.BorderBrush>
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <drawable:PictureIcon Width="100"/>
+                    <TextBlock HorizontalAlignment="Center" FontSize="24">Drop Files Here</TextBlock>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <StackPanel Name="OpenFilesUI"  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <drawable:AddIcon Width="100"/>
+            <TextBlock HorizontalAlignment="Center" FontSize="24">
+                <Hyperlink Name="OpenFilesLink" TextDecorations="{x:Null}"
+                           Click="OpenFilesLink_Click">Open Files</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+        <Grid Name="ListViewUI" HorizontalAlignment="Stretch" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <controls:ImagesListView Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"            
+                      x:Name="ImagesListView" BorderThickness="0" ScrollViewer.CanContentScroll="False"
+                       ImageListCountChanged="ImagesListView_ImageListCountChanged"/>
+            <Border Grid.Row="1" Padding="10 0 10 0" Background="#F0F0F0" HorizontalAlignment="Stretch">
+                <DockPanel HorizontalAlignment="Stretch" LastChildFill="False">
+                    <drawable:LoadingStatusIcon x:Name="LoadingStatusIcon" Width="17" Height="17" DockPanel.Dock="Right"/>
+                    <Button Name="ConvertButton"
+                            Click="ConvertButton_Click"
+                            DockPanel.Dock="Right" Margin="20 0 50 0" Content=" Convert! "/>
+                    <ComboBox Name="ConvertComboBox"
+                              ItemsSource="{Binding Source={x:Static data:Converter.ConvertDictionary},Mode=OneWay}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Key"
+                              SelectedIndex="0"
+                              DockPanel.Dock="Right" Width="130"/>
+
+                    <TextBlock VerticalAlignment="Center" DockPanel.Dock="Right" Text="Convert to  " FontFamily="Segoe UI Light"></TextBlock>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="Crusade.Controls.ImageCropControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Crusade.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Name="Control">
+    <Border Padding="7">
+        <Viewbox Name="ViewBox" ClipToBounds="False">
+            <Grid Name="Frame" Width="100" Height="100" Background="White" SizeChanged="Frame_SizeChanged">
+                <Image Name="Image" Source="{Binding ElementName=Control, Path=Source}"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True"/>
+                <Canvas Name="CutLayer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                        PreviewMouseDown="CutLayer_PreviewMouseDown"
+                        PreviewMouseMove="CutLayer_PreviewMouseMove"
+                        PreviewMouseUp="CutLayer_PreviewMouseUp">
+                    <Path Fill="#551E90FF">
+                        <Path.Data>
+                            <GeometryGroup>
+                                <RectangleGeometry x:Name="Cover" Rect="0,0,100,100"/>
+                                <PathGeometry>
+                                    <PathGeometry.Figures>
+                                        <PathFigure 
+                                            StartPoint="{Binding ElementName=Control, Path=P1}" IsClosed="True">
+                                            <PathFigure.Segments>
+                                                <LineSegment Point="{Binding ElementName=Control, Path=P2}"/>
+                                                <LineSegment Point="{Binding ElementName=Control, Path=P3}"/>
+                                                <LineSegment Point="{Binding ElementName=Control, Path=P4}"/>
+                                            </PathFigure.Segments>
+                                        </PathFigure>
+                                    </PathGeometry.Figures>
+                                </PathGeometry>
+                            </GeometryGroup>
+                        </Path.Data>
+                    </Path>
+                    <Path Name="Poly4" Stroke="{Binding ElementName=Control,Path=StrokeColor}" StrokeThickness="{Binding ElementName=Control,Path=ComputedThickness}"
+                          StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" StrokeLineJoin="Bevel">
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathGeometry.Figures>
+                                    <PathFigure 
+                                            StartPoint="{Binding ElementName=Control, Path=P1}" IsClosed="True">
+                                        <PathFigure.Segments>
+                                            <LineSegment Point="{Binding ElementName=Control, Path=P2}"/>
+                                            <LineSegment Point="{Binding ElementName=Control, Path=P3}"/>
+                                            <LineSegment Point="{Binding ElementName=Control, Path=P4}"/>
+                                        </PathFigure.Segments>
+                                    </PathFigure>
+                                </PathGeometry.Figures>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
+                    <Path Fill="White" Stroke="DodgerBlue" StrokeThickness="{Binding ElementName=Control,Path=ComputedThickness}">
+                        <Path.Data>
+                            <EllipseGeometry Center="{Binding ElementName=Control, Path=P1}"
+                                             RadiusX="{Binding ElementName=Control,Path=ComputedRadius}" 
+                                             RadiusY="{Binding ElementName=Control,Path=ComputedRadius}"/>
+                        </Path.Data>
+                    </Path>
+                    <Path Fill="White" Stroke="DodgerBlue" StrokeThickness="{Binding ElementName=Control,Path=ComputedThickness}">
+                        <Path.Data>
+                            <EllipseGeometry Center="{Binding ElementName=Control, Path=P2}" 
+                                             RadiusX="{Binding ElementName=Control,Path=ComputedRadius}" 
+                                             RadiusY="{Binding ElementName=Control,Path=ComputedRadius}"/>
+                        </Path.Data>
+                    </Path>
+                    <Path Fill="White" Stroke="DodgerBlue" StrokeThickness="{Binding ElementName=Control,Path=ComputedThickness}">
+                        <Path.Data>
+                            <EllipseGeometry Center="{Binding ElementName=Control, Path=P3}" 
+                                             RadiusX="{Binding ElementName=Control,Path=ComputedRadius}" 
+                                             RadiusY="{Binding ElementName=Control,Path=ComputedRadius}"/>
+                        </Path.Data>
+                    </Path>
+                    <Path Fill="White" Stroke="DodgerBlue" StrokeThickness="{Binding ElementName=Control,Path=ComputedThickness}">
+                        <Path.Data>
+                            <EllipseGeometry Center="{Binding ElementName=Control, Path=P4}" 
+                                             RadiusX="{Binding ElementName=Control,Path=ComputedRadius}" 
+                                             RadiusY="{Binding ElementName=Control,Path=ComputedRadius}"/>
+                        </Path.Data>
+                    </Path>
+                </Canvas>
+            </Grid>
+        </Viewbox>
+    </Border>
+</UserControl>

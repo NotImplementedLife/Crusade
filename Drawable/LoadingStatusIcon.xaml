@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Crusade.Drawable.LoadingStatusIcon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Crusade.Drawable"
+             mc:Ignorable="d" 
+             d:DesignHeight="20" d:DesignWidth="20"
+             Name="Control"
+             Foreground="Gray">
+    <Grid>
+        <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <Canvas Width="50" Height="50">
+                <Path Stroke="{Binding ElementName=Control,Path=Foreground}" StrokeThickness="10" RenderTransformOrigin="0.5,0.5">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigureCollection>
+                                    <PathFigure StartPoint="25,5">
+                                        <PathFigure.Segments>
+                                            <PathSegmentCollection>
+                                                <ArcSegment Size="20,20" RotationAngle="0" IsLargeArc="True" SweepDirection="Clockwise" Point="5,25" />
+                                            </PathSegmentCollection>
+                                        </PathFigure.Segments>
+                                    </PathFigure>
+                                </PathFigureCollection>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                    <Path.RenderTransform>
+                        <!-- giving the transform a name tells the framework not to freeze it -->
+                        <RotateTransform x:Name="LoadingRotate" />
+                    </Path.RenderTransform>
+                    <Path.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="(Path.RenderTransform).(RotateTransform.Angle)"
+                                    To="-360" Duration="0:0:2" RepeatBehavior="Forever" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Path.Triggers>
+                </Path>
+            </Canvas>
+        </Viewbox>
+    </Grid>
+</UserControl>

@@ -1,0 +1,32 @@
+﻿<local:CustomWindow x:Class="Crusade.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Crusade.Windows"
+        xmlns:controls="clr-namespace:Crusade.Controls"
+        mc:Ignorable="d"
+        Height="250" Width="620"
+        Title="Crusade">
+    <local:CustomWindow.TitleBarContent>
+        <DockPanel Name="TitleBar" LastChildFill="False" HorizontalAlignment="Stretch"
+                Background="#F0F0F0">
+            <!-- ^^^ Set Background otherwise TitleBar will not respond to mouse events-->
+            <Button Name="TitleBarCloseButton" 
+                        Style="{DynamicResource TitleBarCloseButton}" Content="&#x2A2F;" DockPanel.Dock="Right"                        
+                        Click="TitleBarCloseButton_Click"/>
+            <Button Name="TitleBarMinimizeButton" 
+                        Style="{DynamicResource TitleBarButton}" Content="__" DockPanel.Dock="Right"
+                        Click="TitleBarMinimizeButton_Click"/>
+            <Button Name="TitleBarInfoButton" Width="30"
+                        Style="{DynamicResource TitleBarButton}" Content="&#9432;" DockPanel.Dock="Right"
+                        Click="TitleBarInfoButton_Click"/>
+            <Button Name="TitleBarPreferencesButton" Width="30"
+                        Style="{DynamicResource TitleBarButton}" Content="&#x2606;" DockPanel.Dock="Right"
+                        Click="TitleBarPreferencesButton_Click"/>
+        </DockPanel>
+    </local:CustomWindow.TitleBarContent>
+    <local:CustomWindow.InnerContent>
+        <controls:ImgContainer Background="White" x:Name="ImgContainer"/>
+    </local:CustomWindow.InnerContent>
+</local:CustomWindow>

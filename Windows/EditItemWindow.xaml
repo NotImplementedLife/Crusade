@@ -1,0 +1,90 @@
+﻿<local:CustomWindow        
+        x:Class="Crusade.Windows.EditItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Crusade.Windows"
+        xmlns:controls="clr-namespace:Crusade.Controls"
+        xmlns:base="clr-namespace:Crusade"
+        mc:Ignorable="d"        
+        Height="450" Width="800" x:Name="EditWindow">
+    <local:CustomWindow.TitleBarContent>
+        <DockPanel Name="TitleBar" HorizontalAlignment="Stretch"
+                Background="#F0F0F0">
+            <!-- ^^^ Set Background otherwise TitleBar will not respond to mouse events-->            
+            <Button Name="TitleBarCloseButton" 
+                        Style="{DynamicResource TitleBarCloseButton}" Content="&#x2A2F;" DockPanel.Dock="Right"                        
+                        Click="TitleBarCloseButton_Click"/>
+            <Button Name="TitleBarMinimizeButton" 
+                        Style="{DynamicResource TitleBarButton}" Content="__" DockPanel.Dock="Right"
+                        Click="TitleBarMinimizeButton_Click"/>
+            <!-- Symmetry mask -->
+            <Button Style="{DynamicResource TitleBarCloseButton}" DockPanel.Dock="Left" Visibility="Hidden"/>
+            <Button Style="{DynamicResource TitleBarCloseButton}" DockPanel.Dock="Left" Visibility="Hidden"/>
+            <!-- /Symmetry mask -->
+            <Label Content="{Binding ElementName=EditWindow,Path=Title}" HorizontalContentAlignment="Center"/>
+        </DockPanel>
+    </local:CustomWindow.TitleBarContent>
+    <local:CustomWindow.InnerContent>
+        <Grid Margin="17 0 17 17">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <DockPanel LastChildFill="False">
+                <Button Width="30" FontSize="18" Margin="10,3,0,3" DockPanel.Dock="Left" Content="&#10550;" IsEnabled="False" Visibility="Hidden"/>
+                <Button Width="30" FontSize="18" Margin="0,3,0,3" DockPanel.Dock="Left" Content="&#10551;" IsEnabled="False" Visibility="Hidden"/>
+                <Button Name="CommitButton"
+                    Width="30" FontSize="20" Margin="0,3,0,3" DockPanel.Dock="Right" Content="&#128504;"
+                    Foreground="Green"
+                    Click="CommitButton_Click"/>
+            </DockPanel>
+            <TabControl Grid.Row="1" TabStripPlacement="Left" Name="TabControl">
+                <TabControl.Resources>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <Grid Width="100" Height="35">
+                                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">
+                                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                                        </Label>
+                                    </Grid>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Padding" Value="3" />
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="Crop" Selector.Selected="Crop_TabItem_Selected">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <controls:ImageCropControl x:Name="CropperTool"/>
+                        <Button Name="CropButton" Style="{DynamicResource LongTaskButton}" Grid.Row="1" 
+                            HorizontalAlignment="Right" Click="CropButton_Click" Margin="5">Crop</Button>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Resize" Selector.Selected="Resize_TabItem_Selected">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <controls:ImageResizeControl x:Name="ResizerTool"/>
+                        <Button Name="ResizeButton" Style="{DynamicResource LongTaskButton}" Grid.Row="1" 
+                            HorizontalAlignment="Right" Click="ResizeButton_Click" Margin="5">Resize</Button>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Draw">
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center">Coming soon...</Label>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </local:CustomWindow.InnerContent>
+</local:CustomWindow>

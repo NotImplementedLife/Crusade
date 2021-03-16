@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Crusade.Drawable.PictureIcon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Crusade.Drawable"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="100" Name="Control" Foreground="#FF686DD6">
+    <Grid>
+        <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <Canvas Width="100" Height="100">
+                <Path Fill="{Binding ElementName=Control,Path=Foreground}">
+                    <Path.Data>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="5 5 90 90" RadiusX="13" RadiusY="10" />
+                            <RectangleGeometry Rect="15 15 70 55" RadiusX="5" RadiusY="5" />
+                        </GeometryGroup>
+                    </Path.Data>
+                </Path>
+                <Path Data="M10,71 23,50 Q 33,33 43,50 L50,60 Q 55,67 59,59 Q66,45 80,60L90,71" 
+                      Fill="{Binding ElementName=Control,Path=Foreground}"/>
+                <Path Fill="{Binding ElementName=Control,Path=Foreground}">
+                    <Path.Data>
+                        <EllipseGeometry Center="70,35" RadiusX="9" RadiusY="9"/>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Viewbox>
+    </Grid>
+</UserControl>

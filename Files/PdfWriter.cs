@@ -114,8 +114,7 @@ namespace Crusade.Files
             Graphics.FromImage(img).Clear(Color.Red);
             Graphics.FromImage(img).DrawImage(src, 0, 0, width, height);
             var ms = new MemoryStream();
-            img.Save(ms, ImageFormat.Jpeg);
-            img.Save(filename + ".jpg");
+            img.Save(ms, ImageFormat.Jpeg);            
             var arr = ms.ToArray();
             var len = arr.Length;
 
